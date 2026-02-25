@@ -24,4 +24,24 @@ describe("Login", () => {
         "Olá QA, esse é o seu Dojo para aprender Automação de Testes.",
       );
   });
+
+  it("Não Deve logar com senha invalida", () => {
+    cy.viewport(1440, 900);
+    cy.visit("http://localhost:3000");
+    cy.get("#email").type("papito@webdojo.com");
+    cy.get("#password").type("asdsad");
+    cy.contains("button", "Entrar").click();
+
+    cy.contains("Acesso negado! Tente novamente.").should("be.visible");
+  });
+
+  it("Não Deve logar com email não cadastrado", () => {
+    cy.viewport(1440, 900);
+    cy.visit("http://localhost:3000");
+    cy.get("#email").type("404o@webdojo.com");
+    cy.get("#password").type("asdsad");
+    cy.contains("button", "Entrar").click();
+
+    cy.contains("Acesso negado! Tente novamente.").should("be.visible");
+  });
 });
