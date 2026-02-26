@@ -1,17 +1,7 @@
-describe("template spec", () => {
-  it("passes", () => {
-    cy.viewport(1440, 900);
-    cy.visit("http://localhost:3000");
-  });
-});
-
 describe("Login", () => {
   it("Deve logar com sucesso", () => {
-    cy.viewport(1440, 900);
-    cy.visit("http://localhost:3000");
-    cy.get("#email").type("papito@webdojo.com");
-    cy.get("#password").type("katana123");
-    cy.contains("button", "Entrar").click();
+    cy.start();
+    cy.submitLoginForm("papito@webdojo.com", "katana123");
 
     cy.get('[data-cy="user-name"]')
       .should("be.visible")
@@ -26,22 +16,14 @@ describe("Login", () => {
   });
 
   it("Não Deve logar com senha invalida", () => {
-    cy.viewport(1440, 900);
-    cy.visit("http://localhost:3000");
-    cy.get("#email").type("papito@webdojo.com");
-    cy.get("#password").type("asdsad");
-    cy.contains("button", "Entrar").click();
-
+    cy.start();
+    cy.submitLoginForm("papito@webdojo.com", "katana321");
     cy.contains("Acesso negado! Tente novamente.").should("be.visible");
   });
 
   it("Não Deve logar com email não cadastrado", () => {
-    cy.viewport(1440, 900);
-    cy.visit("http://localhost:3000");
-    cy.get("#email").type("404o@webdojo.com");
-    cy.get("#password").type("asdsad");
-    cy.contains("button", "Entrar").click();
-
+    cy.start();
+    cy.submitLoginForm("404o@webdojo.com", "katana123");
     cy.contains("Acesso negado! Tente novamente.").should("be.visible");
   });
 });
