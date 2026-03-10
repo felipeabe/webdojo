@@ -24,9 +24,12 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import "cypress-real-events";
+import "./actions/consultancy.actions";
+
 Cypress.Commands.add("start", () => {
   cy.viewport(1440, 900);
-  cy.visit("http://localhost:3000");
+  cy.visit("/");
 });
 
 Cypress.Commands.add("submitLoginForm", (email, senha) => {
@@ -38,4 +41,31 @@ Cypress.Commands.add("submitLoginForm", (email, senha) => {
 Cypress.Commands.add("goTo", (buttonName, pageTitle) => {
   cy.contains("button", buttonName).should("be.visible").click();
   cy.contains("h1", pageTitle).should("be.visible");
+});
+
+function getDataFormatada() {
+  const hoje = new Date();
+
+  const dia = String(hoje.getDate()).padStart(2, "0");
+  const mes = String(hoje.getMonth() + 1).padStart(2, "0"); // meses começam em 0
+  const ano = hoje.getFullYear();
+
+  return `${dia}/${mes}/${ano}`;
+}
+
+Cypress.Commands.add("login", (ui = false) => {
+  if (ui) {
+    cy.start();
+    cy.submitLoginForm("papito@webdojo.com", "katana123");
+  } else {
+    const token = "e1033d63a53fe66c0fd3451c7fd8f617";
+    const loginDate = getDataFormatada();
+
+    cy.setCookie("login_date", loginDate);
+    cy.visit("/dashboard", {
+      onBeforeLoad(win) {
+        win.localStorage.setItem("token", token);
+      },
+    });
+  }
 });

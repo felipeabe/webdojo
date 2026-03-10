@@ -1,0 +1,34 @@
+{
+  "personal": {
+    "name": "Fernando Papito",
+    "email": "papito@teste.com.br",
+    "phone": "11 99999-1000",
+    "consultancyType": "Individual",
+    "personType": "cpf",
+    "document": "12345678911",
+    "discoveryChannels": [
+      "Instagram",
+      "LinkedIn",
+      "Udemy",
+      "YouTube",
+      "Indicação de Amigo"
+    ],
+    "file": "./cypress/fixtures/document.PDF",
+    "description": "Lorem Ipsum é o texto de preenchimento padrão da indústria",
+    "techs": ["Cypress", "Selenium", "WebDriverIO", "Playwright"],
+    "terms": true
+  },
+  "company": {
+    "name": "Fernando Papito",
+    "email": "papito@teste.com.br",
+    "phone": "11 99999-1000",
+    "consultancyType": "In Company",
+    "personType": "cnpj",
+    "document": "68736371000170",
+    "discoveryChannels": ["Instagram", "LinkedIn"],
+    "file": "./cypress/fixtures/document.PDF",
+    "description": "Lorem Ipsum é o texto de preenchimento padrão da indústria",
+    "techs": ["Cypress"],
+    "terms": true
+  }
+}

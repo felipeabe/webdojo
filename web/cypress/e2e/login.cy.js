@@ -1,3 +1,5 @@
+import { getDataFormatada } from "../support/utils";
+
 describe("Login", () => {
   it("Deve logar com sucesso", () => {
     cy.start();
@@ -13,6 +15,15 @@ describe("Login", () => {
         "have.text",
         "Olá QA, esse é o seu Dojo para aprender Automação de Testes.",
       );
+    cy.getCookie("login_date").should("exist");
+    cy.getCookie("login_date").should((cookie) => {
+      expect(cookie.value).to.eq(getDataFormatada());
+    });
+
+    cy.window().then((win) => {
+      const token = win.localStorage.getItem("token");
+      expect(token).to.match(/^[a-fA-F0-9]{32}$/);
+    });
   });
 
   it("Não Deve logar com senha invalida", () => {
