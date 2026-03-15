@@ -28,8 +28,13 @@ import "cypress-real-events";
 import "./actions/consultancy.actions";
 
 Cypress.Commands.add("start", () => {
-  cy.viewport(1440, 900);
   cy.visit("/");
+});
+
+Cypress.Commands.add("goToSignup", () => {
+  cy.start();
+  cy.contains("a", "Cadastre-se").click();
+  cy.contains("h2", "Crie sua conta").should("be.visible");
 });
 
 Cypress.Commands.add("submitLoginForm", (email, senha) => {
